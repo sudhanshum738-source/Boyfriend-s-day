@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Something For You ♡</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      linear-gradient(rgba(80,120,110,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(80,120,110,.08) 1px, transparent 1px),
+      #f7f5ed;
+    background-size: 28px 28px;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #263c38;
+    overflow: hidden;
+  }
+
+  .page {
+    width: min(92vw, 520px);
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    letter-spacing: 4px;
+    font-size: 12px;
+    color: #9b6f68;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: clamp(30px, 8vw, 48px);
+    margin: 0 0 34px;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #788984;
+    margin-top: 26px;
+  }
+
+  .envelope {
+    position: relative;
+    width: min(82vw, 380px);
+    height: 240px;
+    cursor: pointer;
+    perspective: 900px;
+    filter: drop-shadow(0 15px 20px rgba(40,50,45,.14));
+  }
+
+  .env-body {
+    position: absolute;
+    inset: 35px 0 0;
+    background: #edf2e9;
+    border: 3px solid #304b46;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .env-body:before,
+  .env-body:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 52%;
+    height: 3px;
+    background: #304b46;
+    transform-origin: bottom;
+  }
+  .env-body:before { left: 0; transform: rotate(29deg); }
+  .env-body:after { right: 0; transform: rotate(-29deg); }
+
+  .flap {
+    position: absolute;
+    left: 0;
+    top: 35px;
+    width: 100%;
+    height: 135px;
+    background: #dce9df;
+    border: 3px solid #304b46;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform .8s cubic-bezier(.2,.8,.2,1);
+    z-index: 3;
+  }
+
+  .seal {
+    position: absolute;
+    left: 50%;
+    top: 122px;
+    transform: translate(-50%,-50%);
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #eaa56c;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    z-index: 4;
+    transition: opacity .35s ease;
+  }
+
+  .letter {
+    position: absolute;
+    left: 8%;
+    width: 84%;
+    bottom: 15px;
+    height: 185px;
+    background: #fffdf8;
+    border-radius: 7px;
+    padding: 22px;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(30,40,35,.08);
+    transform: translateY(105px);
+    transition: transform .8s cubic-bezier(.2,.8,.2,1);
+    z-index: 2;
+  }
+
+  .letter h2 { margin: 0 0 14px; font-size: 24px; }
+  .letter p {
+    margin: 0;
+    font-family: "Trebuchet MS", sans-serif;
+    line-height: 1.55;
+    font-size: 13px;
+  }
+
+  .opened .flap { transform: rotateX(180deg); z-index: 1; }
+  .opened .letter { transform: translateY(-35px); }
+  .opened .seal { opacity: 0; }
+
+  .button {
+    margin-top: 26px;
+    border: none;
+    background: #287e70;
+    color: white;
+    padding: 13px 28px;
+    border-radius: 999px;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    letter-spacing: .5px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: .4s ease;
+  }
+  .opened + .button {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .hint {
+    margin-top: 18px;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #8c9994;
+  }
+
+  @media (max-height: 700px) {
+    .page { min-height: 100vh; transform: scale(.88); }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="eyebrow">✦ A LITTLE SURPRISE ✦</div>
+  <h1>Hey You! ♡</h1>
+
+  <div class="envelope" id="envelope" aria-label="Open the envelope">
+    <div class="env-body"></div>
+
+    <div class="letter">
+      <h2>For you ♡</h2>
+      <p>
+        I made a little something just for you...<br>
+        Tap the envelope and stay for a while.
+      </p>
+    </div>
+
+    <div class="flap"></div>
+    <div class="seal">♥</div>
+  </div>
+
+  <button class="button" id="next">open the surprise →</button>
+  <div class="hint" id="hint">TAP THE ENVELOPE TO BEGIN</div>
+  <div class="subtitle">made with a little extra love ✿</div>
+</main>
+
+<script>
+  const envelope = document.getElementById('envelope');
+  const next = document.getElementById('next');
+  const hint = document.getElementById('hint');
+
+  envelope.addEventListener('click', () => {
+    envelope.classList.add('opened');
+    hint.textContent = 'ONE LITTLE SURPRISE AT A TIME ✿';
+  });
+
+  next.addEventListener('click', () => {
+    alert('Page 1 is ready! Next we can add the letter, photos, scratch cards and memory wall.');
+  });
+</script>
+</body>
+</html>
